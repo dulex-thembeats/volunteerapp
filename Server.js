@@ -2,10 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var ejs = require('ejs')
 var path = require('path');
+var {mongoose} = require('./server/db/mongoose.js');
+var {Post} = require('./server/models/Posts');
+var {user} = require('./server/models/user');
+var{admin} = require('./server/models/admin');
 
 var app = express();
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 
 
 app.set('views', __dirname + '/views')
@@ -35,7 +39,10 @@ var message = 'please provide your credentials'
     res.render('login.ejs',{
         message: message
     });
-})
+});
+
+app.post('/admin', (req, res) => {
+});
 
 
 app.get('/blog', (req, res) => {
@@ -43,16 +50,35 @@ app.get('/blog', (req, res) => {
 })
 
 app.post('/blog', (req, res) => {
-    res.send('yeah i know')
+})
+
+app.post('/post', (req, res) => {
+    var post = new Post({ 
+        header: req.body.header,
+        body: req.body.body
+    });
+
+    post.save().then((doc) => {
+        res.send(doc);
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
+app.get('/post', (req, res) => {
+
+    Post.find().then((data) => {
+
+        res.send({data})
+
+    }, (e) => {
+        res.status(400).send(e)
+    })
 })
 
 
-app.post('/admin', (req, res) => {
-
-});
 
 app.get('/dashboard', (req, res) => {
-
     var message = 'welcome '
     res.render('dashboard.ejs', {message:message})
 
