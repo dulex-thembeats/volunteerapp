@@ -45,12 +45,12 @@ app.post('/admin', (req, res) => {
 });
 
 
-app.get('/blog', (req, res) => {
-    res.render('blog.ejs');
-})
+// app.get('/blog', (req, res) => {
+//     res.render('blog.ejs');
+// })
 
-app.post('/blog', (req, res) => {
-})
+// app.post('/blog', (req, res) => {
+// })
 
 app.post('/post', (req, res) => {
     var post = new Post({ 
@@ -78,11 +78,11 @@ app.get('/post', (req, res) => {
 
 
 
-app.get('/dashboard', (req, res) => {
-    var message = 'welcome '
-    res.render('dashboard.ejs', {message:message})
+// app.get('/dashboard', (req, res) => {
+//     var message = 'welcome '
+//     res.render('dashboard.ejs', {message:message})
 
-})
+// })
 
 
 
